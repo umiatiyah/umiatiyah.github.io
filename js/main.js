@@ -66,6 +66,39 @@
      time: 1000
     });
 
+    /* Articles carousel
+    ========================================================*/
+    var articleTrack = document.getElementById('article-track');
+    if (articleTrack) {
+      var articlePrevious = document.querySelector('.article-previous');
+      var articleNext = document.querySelector('.article-next');
+
+      var updateArticleButtons = function() {
+        var maxScrollLeft = articleTrack.scrollWidth - articleTrack.clientWidth;
+        articlePrevious.disabled = articleTrack.scrollLeft <= 1;
+        articleNext.disabled = articleTrack.scrollLeft >= maxScrollLeft - 1;
+      };
+
+      var scrollArticles = function(direction) {
+        var articleCard = articleTrack.querySelector('.article-card');
+        if (articleCard) {
+          var cardWidth = articleCard.getBoundingClientRect().width;
+          var gap = parseFloat(window.getComputedStyle(articleTrack).columnGap) || 0;
+          articleTrack.scrollBy({ left: direction * (cardWidth + gap), behavior: 'smooth' });
+        }
+      };
+
+      articlePrevious.addEventListener('click', function() {
+        scrollArticles(-1);
+      });
+      articleNext.addEventListener('click', function() {
+        scrollArticles(1);
+      });
+      articleTrack.addEventListener('scroll', updateArticleButtons);
+      window.addEventListener('resize', updateArticleButtons);
+      updateArticleButtons();
+    }
+
 
     /* Back Top Link active
     ========================================================*/
