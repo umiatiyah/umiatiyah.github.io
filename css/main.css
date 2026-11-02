@@ -228,6 +228,10 @@ button:focus {
   background: #1260A2;
 }
 
+.social-icon li .medium:hover {
+  background: #000;
+}
+
 .social-icon li .google:hover {
   background: #CE332A;
 }
